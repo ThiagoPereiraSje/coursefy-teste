@@ -8,12 +8,13 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import Splash from './src/screens/Spash';
+import Navbar from './src/components/Navbar';
+// import Splash from './src/screens/Spash';
 
 export default function App() {
   return (
     <SafeAreaView style={Styles.container}>
-      <Splash />
+      <Navbar />
     </SafeAreaView>
   );
 }
