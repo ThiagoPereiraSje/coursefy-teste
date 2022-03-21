@@ -4,7 +4,7 @@ import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
 
 const URL_MEDIA = 'https://blog.coursify.me/wp-json/wp/v2/media/';
-const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts';
+const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts?categories=';
 
 export default function Category({category}) {
   const [conbined, setConbined] = useState([]);
@@ -14,12 +14,12 @@ export default function Category({category}) {
     return await reponse.json();
   };
 
-  const loadPosts = async () => {
-    const reponse = await fetch(URL_POST);
-    return await reponse.json();
-  };
-
   useEffect(() => {
+    const loadPosts = async () => {
+      const reponse = await fetch(`${URL_POST}${category.id}`);
+      return await reponse.json();
+    };
+
     const conbineData = async () => {
       const data = [];
       const media = await loadMedia();
@@ -37,7 +37,7 @@ export default function Category({category}) {
     };
 
     conbineData();
-  }, []);
+  }, [category.id]);
 
   const renderItem = ({item}) => {
     return (
