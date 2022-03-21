@@ -42,6 +42,14 @@ export default function Category({category}) {
     return (
       <View>
         <Image style={Styles.image} source={{uri: item.media.guid.rendered}} />
+        <Text style={Styles.postTitle}>{item.post.title.rendered}</Text>
+        <Text style={Styles.postResume}>
+          {item.post.excerpt.rendered.substring(0, 150)}
+        </Text>
+
+        <TouchableOpacity>
+          <Text style={Styles.label}>Leia mais</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -69,7 +77,9 @@ export default function Category({category}) {
 
 const Styles = StyleSheet.create({
   container: {
-    height: 200,
+    height: 300,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   header: {
     flexDirection: 'row',
@@ -80,7 +90,7 @@ const Styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 14,
-    color: '#1ABC9C',
+    color: '#348a8d',
   },
   subtitle: {
     margin: 5,
@@ -94,5 +104,19 @@ const Styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 140,
+  },
+  postTitle: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    color: '#1ABC9C',
+  },
+  postResume: {
+    fontSize: 12,
+    color: '#999',
+  },
+  label: {
+    marginTop: 5,
+    fontSize: 12,
+    color: '#FFA900',
   },
 });
