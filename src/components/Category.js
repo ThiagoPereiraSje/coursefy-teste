@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
+import {useRouteActions} from '../features/route-context';
+import Routes from '../enums/Routes';
 
 const URL_MEDIA = 'https://blog.coursify.me/wp-json/wp/v2/media/';
 const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts?categories=';
 
 export default function Category({category}) {
   const [conbined, setConbined] = useState([]);
+  const {navigate} = useRouteActions();
 
   const loadMedia = async () => {
     const reponse = await fetch(URL_MEDIA);
@@ -48,7 +51,7 @@ export default function Category({category}) {
           {item.post.excerpt.rendered.substring(0, 150)}
         </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate(Routes.Post, item.post.id)}>
           <Text style={Styles.label}>Leia mais</Text>
         </TouchableOpacity>
       </View>
