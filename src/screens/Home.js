@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, StyleSheet} from 'react-native';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Category from '../components/Category';
 
 const URL = 'https://blog.coursify.me/wp-json/wp/v2/categories/';
 
@@ -10,8 +11,8 @@ export default function Home() {
 
   const loadData = async () => {
     const reponse = await fetch(URL);
-    const json = await reponse.json();
-    console.log('data: ', json[0].name);
+    const data = await reponse.json();
+    setCategories(data);
   };
 
   useEffect(() => {
@@ -22,7 +23,9 @@ export default function Home() {
     <ScrollView>
       <Navbar />
       <View style={Styles.container}>
-        <Text>Home</Text>
+        {categories.map((ct, i) => (
+          <Category key={i} category={ct} />
+        ))}
       </View>
       <Footer />
     </ScrollView>
@@ -30,7 +33,5 @@ export default function Home() {
 }
 
 const Styles = StyleSheet.create({
-  container: {
-    height: 600,
-  },
+  container: {},
 });
