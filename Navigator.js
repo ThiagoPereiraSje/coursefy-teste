@@ -1,10 +1,13 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import Splash from './src/screens/Splash';
+import Home from './src/screens/Home';
+import Post from './src/screens/Post';
+import {useRouteStates} from './src/features/route-context';
+
+const routes = [<Splash />, <Home />, <Post />];
 
 export default function Navigator() {
-  return (
-    <View>
-      <Text>Navegador</Text>
-    </View>
-  );
+  const {route} = useRouteStates();
+
+  return routes[route];
 }
