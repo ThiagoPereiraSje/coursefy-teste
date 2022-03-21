@@ -1,10 +1,17 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import sanitizeHtml from 'sanitize-html';
+import {useRouteStates, useRouteActions} from '../features/route-context';
 
-const POST_ID = 3446;
 const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts/';
 const URL_MEDIA = 'https://blog.coursify.me/wp-json/wp/v2/media/';
 const options = {allowedTags: []};
@@ -12,6 +19,8 @@ const options = {allowedTags: []};
 export default function Post() {
   const [post, setPost] = useState();
   const [media, setMedia] = useState();
+  const {params: POST_ID} = useRouteStates();
+  const {goBack} = useRouteActions();
 
   const loadMedia = async mediaId => {
     const reponse = await fetch(`${URL_MEDIA}${mediaId}`);
@@ -28,13 +37,16 @@ export default function Post() {
     };
 
     loadPost();
-  }, []);
+  }, [POST_ID]);
 
   return (
     <ScrollView>
       <Navbar />
       <View style={Styles.container}>
         <Text style={Styles.title}>{post?.title?.rendered}</Text>
+        <TouchableOpacity onPress={goBack}>
+          <Text>Voltar</Text>
+        </TouchableOpacity>
         <Image style={Styles.image} source={{uri: media?.guid?.rendered}} />
         <Text style={Styles.content}>
           {sanitizeHtml(post?.content?.rendered, options)}
