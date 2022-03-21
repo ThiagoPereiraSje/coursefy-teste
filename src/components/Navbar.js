@@ -1,12 +1,13 @@
 import React from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import FaIcon from 'react-native-vector-icons/FontAwesome';
 
 export default function Navbar() {
   return (
     <View style={Styles.container}>
       <Image source={require('../assets/logo-2.png')} />
       <TouchableOpacity style={Styles.button}>
-        <Text>B</Text>
+        <FaIcon style={Styles.icon} name="align-justify" />
       </TouchableOpacity>
     </View>
   );
@@ -25,5 +26,9 @@ const Styles = StyleSheet.create({
     backgroundColor: '#3CC6AA',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  icon: {
+    color: 'white',
+    fontSize: 18,
   },
 });
