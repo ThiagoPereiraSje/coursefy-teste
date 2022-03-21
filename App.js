@@ -8,15 +8,18 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-// import Home from './src/screens/Home';
-import Post from './src/screens/Post';
-// import Splash from './src/screens/Spash';
+import RouterProvider from './src/features/route-context';
+import {withProviders} from './src/utils/react';
+import Navigator from './Navigator';
+
+const providers = [RouterProvider];
 
 export default function App() {
-  return (
+  return withProviders(
     <SafeAreaView style={Styles.container}>
-      <Post />
-    </SafeAreaView>
+      <Navigator />
+    </SafeAreaView>,
+    providers,
   );
 }
 
