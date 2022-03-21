@@ -1,7 +1,27 @@
 import React from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Linking,
+  Alert,
+} from 'react-native';
+
+const URL = 'https://coursify.me/';
 
 export default function Footer() {
+  const openLink = async () => {
+    const suported = await Linking.canOpenURL(URL);
+
+    if (suported) {
+      await Linking.openURL(URL);
+    } else {
+      Alert.alert(`Não é possível abrir o endereço: ${URL}`);
+    }
+  };
+
   return (
     <View style={Styles.container}>
       <Image
@@ -14,7 +34,7 @@ export default function Footer() {
         pessoa ou empresa pode construir seu EAD e vender cursos pela internet.
       </Text>
 
-      <TouchableOpacity style={Styles.button}>
+      <TouchableOpacity style={Styles.button} onPress={openLink}>
         <Text style={Styles.label}>Quero conhecer a plataforma!</Text>
       </TouchableOpacity>
     </View>
