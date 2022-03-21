@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <ScrollView style={Styles.container}>
       <Navbar />
-      <View>
+      <View style={Styles.body}>
         {categories.map((ct, i) => (
           <Category key={i} category={ct} />
         ))}
@@ -35,5 +35,8 @@ export default function Home() {
 const Styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+  },
+  body: {
+    minHeight: 600,
   },
 });

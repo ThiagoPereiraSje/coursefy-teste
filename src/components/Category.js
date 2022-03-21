@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
+import sanitizeHtml from 'sanitize-html';
 import {useRouteActions} from '../features/route-context';
 import Routes from '../enums/Routes';
 
 const URL_MEDIA = 'https://blog.coursify.me/wp-json/wp/v2/media/';
 const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts?categories=';
+const options = {allowedTags: []};
 
 export default function Category({category}) {
   const [conbined, setConbined] = useState([]);
@@ -48,7 +50,7 @@ export default function Category({category}) {
         <Image style={Styles.image} source={{uri: item.media.guid.rendered}} />
         <Text style={Styles.postTitle}>{item.post.title.rendered}</Text>
         <Text style={Styles.postResume}>
-          {item.post.excerpt.rendered.substring(0, 150)}
+          {sanitizeHtml(item.post.excerpt.rendered.substring(0, 150), options)}
         </Text>
 
         <TouchableOpacity onPress={() => navigate(Routes.Post, item.post.id)}>
