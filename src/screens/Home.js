@@ -20,9 +20,9 @@ export default function Home() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={Styles.container}>
       <Navbar />
-      <View style={Styles.container}>
+      <View>
         {categories.map((ct, i) => (
           <Category key={i} category={ct} />
         ))}
@@ -33,5 +33,7 @@ export default function Home() {
 }
 
 const Styles = StyleSheet.create({
-  container: {},
+  container: {
+    flexGrow: 1,
+  },
 });
