@@ -44,7 +44,7 @@ export default function Post() {
       <Navbar />
       <View style={Styles.container}>
         <Text style={Styles.title}>{post?.title?.rendered}</Text>
-        <TouchableOpacity onPress={goBack}>
+        <TouchableOpacity style={Styles.button} onPress={goBack}>
           <Text>Voltar</Text>
         </TouchableOpacity>
         <Image style={Styles.image} source={{uri: media?.guid?.rendered}} />
@@ -60,6 +60,7 @@ export default function Post() {
 const Styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    minHeight: 600,
   },
   title: {
     fontWeight: 'bold',
@@ -75,5 +76,9 @@ const Styles = StyleSheet.create({
   },
   content: {
     padding: 10,
+  },
+  button: {
+    marginTop: 0,
+    marginBottom: 10,
   },
 });
