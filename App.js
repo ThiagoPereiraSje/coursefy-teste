@@ -8,13 +8,14 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import Home from './src/screens/Home';
+// import Home from './src/screens/Home';
+import Post from './src/screens/Post';
 // import Splash from './src/screens/Spash';
 
 export default function App() {
   return (
     <SafeAreaView style={Styles.container}>
-      <Home />
+      <Post />
     </SafeAreaView>
   );
 }
