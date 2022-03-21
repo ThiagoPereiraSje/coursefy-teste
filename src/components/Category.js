@@ -22,15 +22,16 @@ export default function Category({category}) {
   useEffect(() => {
     const conbineData = async () => {
       const data = [];
-      const _media = await loadMedia();
+      const media = await loadMedia();
       const posts = await loadPosts();
 
-      const minus =
-        _media.length <= posts.length ? _media.length : posts.length;
+      posts.forEach(post => {
+        const md = media.find(m => m.id === post.featured_media);
 
-      for (let i = 0; i < minus; i++) {
-        data.push({media: _media[i], post: posts[i]});
-      }
+        if (md) {
+          data.push({post, media: md});
+        }
+      });
 
       setConbined(data);
     };
