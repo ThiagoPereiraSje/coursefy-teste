@@ -3,25 +3,45 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import FaIcon from 'react-native-vector-icons/FontAwesome';
 import Carousel from 'react-native-snap-carousel';
 
-const URL = 'https://blog.coursify.me/wp-json/wp/v2/media/';
+const URL_MEDIA = 'https://blog.coursify.me/wp-json/wp/v2/media/';
+const URL_POST = 'https://blog.coursify.me/wp-json/wp/v2/posts';
 
 export default function Category({category}) {
-  const [media, setMedia] = useState([]);
+  const [conbined, setConbined] = useState([]);
 
-  const loadData = async () => {
-    const reponse = await fetch(URL);
-    const data = await reponse.json();
-    setMedia(data);
+  const loadMedia = async () => {
+    const reponse = await fetch(URL_MEDIA);
+    return await reponse.json();
+  };
+
+  const loadPosts = async () => {
+    const reponse = await fetch(URL_POST);
+    return await reponse.json();
   };
 
   useEffect(() => {
-    loadData();
+    const conbineData = async () => {
+      const data = [];
+      const _media = await loadMedia();
+      const posts = await loadPosts();
+
+      const minus =
+        _media.length <= posts.length ? _media.length : posts.length;
+
+      for (let i = 0; i < minus; i++) {
+        data.push({media: _media[i], post: posts[i]});
+      }
+
+      setConbined(data);
+    };
+
+    conbineData();
   }, []);
 
   const renderItem = ({item}) => {
     return (
       <View>
-        <Image style={Styles.image} source={{uri: item.guid.rendered}} />
+        <Image style={Styles.image} source={{uri: item.media.guid.rendered}} />
       </View>
     );
   };
@@ -38,7 +58,7 @@ export default function Category({category}) {
       </View>
 
       <Carousel
-        data={media}
+        data={conbined}
         renderItem={renderItem}
         sliderWidth={300}
         itemWidth={250}
